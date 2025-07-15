@@ -1,0 +1,30 @@
+FROM pytorch/pytorch:2.0.0-cuda11.7-cudnn8-runtime
+
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    python3-pip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . /app
+WORKDIR /app
+
+COPY ../requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir numpy==1.24.4
+RUN pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 --index-url https://download.pytorch.org/whl/cu118 
+RUN pip install opencv-python==4.7.0.72
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install ultralytics
+
+COPY ../data /app/data
+COPY ../weights /app/weights
+COPY ../notebooks /app/notebooks
+COPY ../evaluation /app/evaluation
+
+# Argument to select mode (cpu/gpu)
+ARG MODE=cpu
+ENV MODE=$MODE
+
+CMD ["python", "/app/notebooks/train.py"]

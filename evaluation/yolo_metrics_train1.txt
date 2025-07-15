@@ -1,0 +1,5 @@
+mAP@0.5: 0.7476
+mAP@0.5:0.95: 0.4735
+Precision: 0.6992
+Recall: 0.7934
+GPU Utilization: 2%GPU Memory Used: 1105.85 MB

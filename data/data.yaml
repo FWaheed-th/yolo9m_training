@@ -1,0 +1,5 @@
+train: /app/data/train/images
+val: /app/data/val/images
+test: /app/data/test/images
+nc: 4
+names: ["Groove_defect", "Protruding_defect", "Recoating_defect", "Cavity_defect"]
